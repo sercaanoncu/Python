@@ -1,25 +1,18 @@
 # Python Market Analysis
-# This code was turned into an application using PowerShell. It was then transferred to a different Excel file, where the following macros were applied, and the necessary analyses were conducted through Excel.
+ This code was turned into an application using PowerShell. It was then transferred to a different Excel file, where the following macros were applied, and the necessary analyses were conducted through Excel.
 
 
 # Refesh
 
-# Private Declare PtrSafe Function sndPlaySound Lib "winmm.dll" Alias "sndPlaySoundA" (ByVal lpszSoundName As String, ByVal uFlags As Long) As Long
-
-
 Dim NextRefresh As Date
 
 Sub StartTimer()
-    ' Set the interval (10 seconds)
     NextRefresh = Now + TimeValue("00:00:10")
     Application.OnTime NextRefresh, "RefreshData"
 End Sub
 
 Sub RefreshData()
-    ' Refresh all data connections
     ThisWorkbook.RefreshAll
-    
-    ' Schedule the next refresh
     StartTimer
 End Sub
 
@@ -41,7 +34,6 @@ Private Sub Worksheet_Change(ByVal Target As Range)
             MsgBox "Dikkat: H27:H29 aralığındaki değerlerden biri 0.3'ten küçük!"
         End If
     End If
-    
     If Not Intersect(Target, Range("G2:G12")) Is Nothing Then
         If Application.WorksheetFunction.Min(Range("G2:G12")) < 0.77 Then
             sndPlaySound "C:\Windows\Media\click.wav", &H1
